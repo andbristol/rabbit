@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '1.2.4'
+}
+
+repositories {
+    jcenter()
+}
+
+project.ext {
+    dropwizardVersion = '1.1.0'
+}
+
+dependencies {
+    compile "io.dropwizard:dropwizard-core:${dropwizardVersion}"
+    compile "io.dropwizard:dropwizard-db:${dropwizardVersion}"
+    compile "io.dropwizard:dropwizard-jdbi:${dropwizardVersion}"
+
+    compile 'org.postgresql:postgresql:42.0.0'
+}
+
+mainClassName = 'com.andybristol.rabbit.RabbitApplication'
+
+run {
+    args 'server', 'conf.yml'
+}
+
+shadowJar {
+    mergeServiceFiles()
+}
